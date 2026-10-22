@@ -1,0 +1,55 @@
+{
+  "module": "files",
+  "objects": [
+    {
+      "role": "folder",
+      "description": "A place documents sit in, and the one fact about who reads them: its audience. The audience is data the host reads; this module never decides who may read.",
+      "fields": [
+        { "name": "id", "type": "string", "description": "Storage key, opaque to callers. Set when the row is written.", "primary": true },
+        { "name": "name", "type": "string", "description": "What the folder is called in a list.", "required": true },
+        { "name": "audience", "type": "enum", "description": "Who reads the folder: anyone, every person in the organisation, the chosen groups, or staff only.", "values": ["public", "members", "groups", "staff"], "required": true },
+        { "name": "group_ids", "type": "json", "description": "The chosen groups when the audience is groups. Opaque ids the host owns." },
+        { "name": "created_by", "type": "string", "description": "Who made the folder, supplied by the mount." },
+        { "name": "created_at", "type": "timestamp", "description": "When the folder was made." }
+      ],
+      "indexes": [
+        { "name": "created", "description": "The newest-first ordering every listing uses.", "fields": ["created_at"] }
+      ]
+    },
+    {
+      "role": "file",
+      "description": "The record of one file: what it is called and which version is current. The bytes belong to its versions, and the versions to a byte store.",
+      "fields": [
+        { "name": "id", "type": "string", "description": "Storage key, opaque to callers. Set when the row is written.", "primary": true },
+        { "name": "folder_id", "type": "string", "description": "The folder the file sits in. The address decides, not the body.", "required": true },
+        { "name": "name", "type": "string", "description": "What the file is called in a list.", "required": true },
+        { "name": "current_version", "type": "int", "description": "The number of the latest version; zero before the first upload." },
+        { "name": "created_by", "type": "string", "description": "Who made the record, supplied by the mount." },
+        { "name": "created_at", "type": "timestamp", "description": "When the record was made." },
+        { "name": "updated_at", "type": "timestamp", "description": "When a version was last added." }
+      ],
+      "indexes": [
+        { "name": "folder", "description": "Listing the files in one folder.", "fields": ["folder_id"] }
+      ]
+    },
+    {
+      "role": "version",
+      "description": "One upload of a file. Never edited; a replacement is the next version and the old one stays in the history.",
+      "fields": [
+        { "name": "id", "type": "string", "description": "Storage key, opaque to callers. Set when the row is written.", "primary": true },
+        { "name": "file_id", "type": "string", "description": "The file this is a version of.", "required": true },
+        { "name": "number", "type": "int", "description": "The version's place in the file's history, counting from one." },
+        { "name": "name", "type": "string", "description": "The name the upload carried." },
+        { "name": "content_type", "type": "string", "description": "The media type of the bytes, as the uploader declared it.", "required": true },
+        { "name": "size", "type": "int", "description": "The number of bytes held, counted by the store." },
+        { "name": "checksum", "type": "string", "description": "The SHA-256 of the bytes as lower-case hex, computed by the store." },
+        { "name": "storage_key", "type": "string", "description": "Where the byte store keeps the bytes. Opaque, minted by the store, never read from a request." },
+        { "name": "uploaded_by", "type": "string", "description": "Who uploaded, supplied by the mount. Never read from the request." },
+        { "name": "uploaded_at", "type": "timestamp", "description": "When the upload was recorded." }
+      ],
+      "indexes": [
+        { "name": "file", "description": "A file's history, in order.", "fields": ["file_id", "number"], "unique": true }
+      ]
+    }
+  ]
+}

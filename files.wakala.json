@@ -1,0 +1,10 @@
+{
+  "module": "files",
+  "domain": "wakala",
+  "instance": "app",
+  "objects": [
+    { "role": "folder", "name": "folder", "table": "folders", "description": "A folder of an organisation's documents." },
+    { "role": "file", "name": "file", "table": "files", "description": "One document, photo or report." },
+    { "role": "version", "name": "version", "table": "versions", "description": "One upload of a file." }
+  ]
+}

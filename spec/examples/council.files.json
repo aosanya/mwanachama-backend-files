@@ -1,0 +1,10 @@
+{
+  "module": "files",
+  "domain": "council",
+  "instance": "town",
+  "objects": [
+    { "role": "folder", "name": "register", "table": "registers", "description": "A register of council papers, published to residents or kept for officers." },
+    { "role": "file", "name": "paper", "table": "papers", "description": "A council paper: minutes, a budget, an inspection photo." },
+    { "role": "version", "name": "revision", "table": "revisions", "description": "One issued revision of a paper." }
+  ]
+}

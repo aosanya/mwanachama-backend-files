@@ -1,0 +1,86 @@
+{
+  "operations": {
+    "create_folder": {
+      "method": "POST",
+      "path": "/folders",
+      "call": "CreateFolder",
+      "action": "files.folder.create",
+      "status": 201,
+      "title": "Make folder",
+      "description": "Make a folder and say who reads it: public, members, chosen groups or staff.",
+      "args": [
+        { "from": "body", "whole": true },
+        { "from": "caller", "as": "created_by", "into": "CreatedBy", "description": "Who made the folder, supplied by the mount. Never read from the request." }
+      ],
+      "returns": [{ "body": true }]
+    },
+    "list_folders": {
+      "method": "GET",
+      "path": "/folders",
+      "call": "ListFolders",
+      "action": "files.folder.list",
+      "title": "List folders",
+      "description": "List folders, newest first, optionally narrowed to one audience.",
+      "args": [{ "from": "query", "whole": true }],
+      "returns": [{ "body": true }]
+    },
+    "create_file": {
+      "method": "POST",
+      "path": "/folders/{folderID}/files",
+      "call": "CreateFile",
+      "action": "files.file.create",
+      "status": 201,
+      "title": "Make file",
+      "description": "Make the record of a file in a folder. Its bytes arrive as its first version.",
+      "args": [
+        { "from": "body", "whole": true },
+        { "from": "path", "as": "folderID", "into": "FolderID", "description": "The folder the file sits in. The address decides, not the body." },
+        { "from": "caller", "as": "created_by", "into": "CreatedBy", "description": "Who made the record, supplied by the mount. Never read from the request." }
+      ],
+      "returns": [{ "body": true }]
+    },
+    "get_file": {
+      "method": "GET",
+      "path": "/files/{fileID}",
+      "call": "GetFile",
+      "action": "files.file.read",
+      "title": "Read file",
+      "description": "Read one file's record, with the number of its current version.",
+      "args": [{ "from": "path", "as": "fileID", "description": "The file to read." }],
+      "returns": [{ "body": true }]
+    },
+    "add_version": {
+      "method": "POST",
+      "path": "/files/{fileID}/versions",
+      "call": "AddVersion",
+      "action": "files.version.create",
+      "status": 201,
+      "title": "Upload version",
+      "description": "Upload the next version of a file. The earlier versions stay in its history.",
+      "args": [
+        { "from": "body", "whole": true },
+        { "from": "path", "as": "fileID", "into": "FileID", "description": "The file this is a version of. The address decides, not the body." },
+        { "from": "caller", "as": "uploaded_by", "into": "UploadedBy", "description": "Who uploaded, supplied by the mount. Never read from the request." }
+      ],
+      "returns": [{ "body": true }]
+    },
+    "list_versions": {
+      "method": "GET",
+      "path": "/files/{fileID}/versions",
+      "call": "ListVersions",
+      "action": "files.version.list",
+      "title": "List versions",
+      "description": "List a file's versions, newest first.",
+      "args": [{ "from": "path", "as": "fileID", "description": "The file whose history to list." }],
+      "returns": [{ "body": true }]
+    }
+  },
+  "errors": {
+    "ErrFolderNotFound": 404,
+    "ErrFileNotFound": 404,
+    "ErrInvalidFolder": 400,
+    "ErrInvalidFile": 400,
+    "ErrInvalidVersion": 400,
+    "ErrNoUploader": 401
+  }
+}

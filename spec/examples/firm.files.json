@@ -1,0 +1,10 @@
+{
+  "module": "files",
+  "domain": "firm",
+  "instance": "chambers",
+  "objects": [
+    { "role": "folder", "name": "matter", "table": "matters", "description": "A client matter's documents, read by its team." },
+    { "role": "file", "name": "deliverable", "table": "deliverables", "description": "A memo, contract or filing handed to the client." },
+    { "role": "version", "name": "draft", "table": "drafts", "description": "One draft of a deliverable." }
+  ]
+}
