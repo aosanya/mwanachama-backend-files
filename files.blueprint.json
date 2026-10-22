@@ -45,7 +45,7 @@
         { "name": "file_id", "type": "string", "description": "The file this is a version of.", "required": true },
         { "name": "number", "type": "int", "description": "The version's place in the file's history, counting from one." },
         { "name": "name", "type": "string", "description": "The name the upload carried." },
-        { "name": "content_type", "type": "string", "description": "The media type of the bytes, as the uploader declared it.", "required": true },
+        { "name": "content_type", "type": "string", "description": "The media type of the bytes, read from the bytes themselves rather than from the name or what the uploader declared.", "required": true },
         { "name": "size", "type": "int", "description": "The number of bytes held, counted by the store." },
         { "name": "checksum", "type": "string", "description": "The SHA-256 of the bytes as lower-case hex, computed by the store." },
         { "name": "storage_key", "type": "string", "description": "Where the byte store keeps the bytes. Opaque, minted by the store, never read from a request." },

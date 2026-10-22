@@ -45,6 +45,12 @@ func (m *fileManager) AddVersion(ctx context.Context, in Version) (Version, erro
 	if len(in.Content) == 0 {
 		return Version{}, fmt.Errorf("%w: content is required", ErrInvalidVersion)
 	}
+	kind, content, err := checkPhoto(in.Content, in.RequireTimeAndPlace)
+	if err != nil {
+		return Version{}, err
+	}
+	in.ContentType = kind
+	in.Content = content
 	if err := m.fitsLargestFile(ctx, len(in.Content)); err != nil {
 		return Version{}, err
 	}

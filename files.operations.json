@@ -91,6 +91,8 @@
     "ErrInvalidFolder": 400,
     "ErrInvalidFile": 400,
     "ErrInvalidVersion": 400,
-    "ErrNoUploader": 401
+    "ErrNoUploader": 401,
+    "ErrTimeAndPlaceRequired": 422,
+    "ErrUnreadablePhoto": 400
   }
 }

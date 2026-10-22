@@ -35,4 +35,6 @@ type Version struct {
 	UploadedBy  string `json:"uploaded_by,omitempty"`
 	UploadedAt  string `json:"uploaded_at"`
 	Content     []byte `json:"content,omitempty" spec:"-"`
+
+	RequireTimeAndPlace bool `json:"require_time_and_place,omitempty" spec:"-"`
 }

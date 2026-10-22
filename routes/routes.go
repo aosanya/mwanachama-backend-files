@@ -12,13 +12,15 @@ type Route = httpwire.Route
 type Mount = dispatch.Mount
 
 var Sentinels = map[string]error{
-	"ErrFolderNotFound": files.ErrFolderNotFound,
-	"ErrFileNotFound":   files.ErrFileNotFound,
-	"ErrInvalidFolder":  files.ErrInvalidFolder,
-	"ErrInvalidFile":    files.ErrInvalidFile,
-	"ErrInvalidVersion": files.ErrInvalidVersion,
-	"ErrNoUploader":     files.ErrNoUploader,
-	"ErrFileTooLarge":   files.ErrFileTooLarge,
+	"ErrFolderNotFound":       files.ErrFolderNotFound,
+	"ErrFileNotFound":         files.ErrFileNotFound,
+	"ErrInvalidFolder":        files.ErrInvalidFolder,
+	"ErrInvalidFile":          files.ErrInvalidFile,
+	"ErrInvalidVersion":       files.ErrInvalidVersion,
+	"ErrNoUploader":           files.ErrNoUploader,
+	"ErrTimeAndPlaceRequired": files.ErrTimeAndPlaceRequired,
+	"ErrUnreadablePhoto":      files.ErrUnreadablePhoto,
+	"ErrFileTooLarge":         files.ErrFileTooLarge,
 }
 
 var AnonymousActions = []string{}
