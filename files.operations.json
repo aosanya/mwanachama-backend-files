@@ -64,6 +64,15 @@
       ],
       "returns": [{ "body": true }]
     },
+    "get_settings": {
+      "method": "GET",
+      "path": "/settings",
+      "call": "Settings",
+      "action": "files.settings.read",
+      "title": "Read settings",
+      "description": "Read the effective files settings and the layer that set each: the longest side a photo is shrunk to, photos per question, and the largest file.",
+      "returns": [{ "body": true }]
+    },
     "list_versions": {
       "method": "GET",
       "path": "/files/{fileID}/versions",
@@ -76,6 +85,7 @@
     }
   },
   "errors": {
+    "ErrFileTooLarge": 413,
     "ErrFolderNotFound": 404,
     "ErrFileNotFound": 404,
     "ErrInvalidFolder": 400,

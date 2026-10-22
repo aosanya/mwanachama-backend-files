@@ -18,6 +18,7 @@ var Sentinels = map[string]error{
 	"ErrInvalidFile":    files.ErrInvalidFile,
 	"ErrInvalidVersion": files.ErrInvalidVersion,
 	"ErrNoUploader":     files.ErrNoUploader,
+	"ErrFileTooLarge":   files.ErrFileTooLarge,
 }
 
 var AnonymousActions = []string{}

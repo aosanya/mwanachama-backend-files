@@ -1,5 +1,10 @@
 {
   "module": "files",
+  "settings": [
+    { "name": "photo_longest_side", "type": "int", "description": "The longest side, in pixels, a photo is shrunk to on the phone before it is sent. Read by the consumers that shrink; this module never resizes an image.", "default": 1600 },
+    { "name": "photos_per_question", "type": "int", "description": "How many photos one question takes. Read by the consumers that collect photos; this module does not count them.", "default": 5 },
+    { "name": "largest_file_bytes", "type": "int", "description": "The largest upload this module accepts, in bytes. An upload past it is refused.", "default": 20971520 }
+  ],
   "objects": [
     {
       "role": "folder",

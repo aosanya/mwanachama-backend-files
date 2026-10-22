@@ -11,4 +11,5 @@ var (
 	ErrNoUploader     = errors.New("an upload needs a caller to stand behind it")
 	ErrBytesNotFound  = errors.New("bytes not found")
 	ErrInvalidKey     = errors.New("invalid storage key")
+	ErrFileTooLarge   = errors.New("file is larger than the largest file setting")
 )

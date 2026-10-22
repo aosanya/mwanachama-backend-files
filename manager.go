@@ -29,13 +29,18 @@ type FileManager interface {
 
 	AddVersion(ctx context.Context, in Version) (Version, error)
 	ListVersions(ctx context.Context, fileID string) ([]Version, error)
+
+	Settings(ctx context.Context) (Settings, error)
+	UseSettings(layers SettingsLayers)
 }
 
 type fileManager struct {
-	db    *gorm.DB
-	st    *store
-	bytes ByteStore
-	now   func() string
+	db       *gorm.DB
+	st       *store
+	bytes    ByteStore
+	now      func() string
+	spec     *spec.Spec
+	settings SettingsLayers
 }
 
 func NewFileManager(db *gorm.DB, s *spec.Spec, bytes ByteStore) (FileManager, error) {
@@ -53,7 +58,7 @@ func NewFileManager(db *gorm.DB, s *spec.Spec, bytes ByteStore) (FileManager, er
 	if err != nil {
 		return nil, fmt.Errorf("NewFileManager: %w", err)
 	}
-	return &fileManager{db: db, st: st, bytes: bytes, now: nowStamp}, nil
+	return &fileManager{db: db, st: st, bytes: bytes, now: nowStamp, spec: s}, nil
 }
 
 func nowStamp() string { return time.Now().UTC().Format(specstore.TimeLayout) }
